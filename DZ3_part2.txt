@@ -1,0 +1,46 @@
+create table Musician (
+	ID serial primary key, 
+	Name varchar(40) not null unique
+);
+
+create table Album (
+	ID serial primary key, 
+	Title varchar(40) not null, 
+	Release date, 
+);
+
+create table MusicianAlbum (
+	MusicianID integer references Musician(ID),
+	AlbumID integer references Album(ID),
+	constraint pk primary key (MusicianID, AlbumID)
+);
+
+create table Genre (
+	ID serial primary key, 
+	Title varchar(40) not null unique
+);
+
+create table MusicianAlbum (
+	MusicianID integer references Musician(ID),
+	GenreID integer references Genre(ID),
+	constraint pk primary key (MusicianID, GenreID)
+);
+
+create table Track (
+	ID serial primary key, 
+	Title varchar(40) not null, 
+	Duration integer check(Duration > 0), 
+	AlbumID integer not null references Album(id)
+);
+
+create table Collection (
+	ID serial primary key, 
+	Title varchar(40) not null, 
+	Release date, 
+);
+
+create table CollectionTrack (
+	CollectionID integer references Collection(ID),
+	TrackID integer references Track(ID),
+	constraint pk primary key (CollectionID, TrackID)
+);
